@@ -1014,3 +1014,41 @@ Contoh responsive layout:
 ![contoh responsive1](foto/CSS/res1.png) <br>
 ![contoh responsive2](foto/CSS/res2.png) <br>
 ![contoh responsive3](foto/CSS/res3.png) <br>
+
+### 🏆 Challenge
+
+Challenge kali ini adalah bikin website profil diri salah satu teman kelompok kalian sendiri. Dikerjakan bertahap dalam dua soal. Soal 1 fokus menyusun HTML, Soal 2 baru menghiasnya dengan CSS.
+
+#### Soal 1. Menyusun HTML
+
+![hasil soal 1](foto/others/soal-1.png)
+
+Gambar di atas adalah target Soal 1. Yang dinilai adalah struktur HTML nya. Intinya Syarat wajibnya / requirement sebagai berikut.
+
+1. Kerangka dasar HTML lengkap dengan `<title>` berisi nama teman kelompok kalian.
+2. Satu div profil berisi foto `<img>` dengan atribut `src`, `alt`, `width`, dan `height`, kemudian `<h1>` nama kalian, `<h2>` status kalian sebagai mahasiswa, dan paragraf perkenalan yang memakai minimal 3 tag formatting.
+3. Tiga buah link `<a>` di bawah paragraf perkenalan, isinya bebas.
+4. Satu div berisi tabel jadwal kuliah kalian. Minimal 4 kolom dan 3 baris isi.
+5. Satu div berisi `<ul>` daftar hobi minimal 3 item, lalu galeri berisi 3 div kartu, tiap kartu berisi judul `<h3>` dan keterangan `<p>`.
+6. Satu div berisi form kontak yang punya label, input nama, input email, textarea pesan, dan tombol submit.
+7. Beri `class` pada div section, div kartu, dan wadah link. Beri `id` pada div profil.
+8. Tutup halaman dengan footer berisi `<small>`.
+
+#### Soal 2. Menghias dengan CSS
+
+![hasil soal 2](foto/others/soal-2.png)
+
+Gambar di atas adalah target Soal 2. HTML nya masih sama dengan hasil Soal 1, sekarang tinggal dihias. Buat file style.css di folder yang sama lalu kerjakan syarat/requirement berikut.
+
+1. Sambungkan style.css ke halaman menggunakan tag `<link>`.
+2. Beri warna latar halaman dan warna pada semua judul.
+3. Buat semua section tampil seperti kartu dengan padding, border, margin, dan max width.
+4. Buat foto profil menjadi bulat menggunakan width, height, dan border radius.
+5. Atur tulisan halaman dengan font family, font size, dan line height.
+6. Rapikan tabel dan form dengan padding serta border.
+7. Buat tombol dan link berubah warna saat di hover, dan input berubah saat di focus.
+8. Susun isi div profil lurus ke tengah menggunakan flex.
+9. Susun galeri kartu menjadi 3 kolom sejajar menggunakan grid dan gap.
+10. Buat halaman responsive, galeri turun menjadi 1 kolom saat layar sempit.
+
+Nanti kalau sudah bisa live coding ke asisten yaa... :D
