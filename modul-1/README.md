@@ -401,8 +401,8 @@ Contoh:
 
 <style>
   .teks-berwarna {
-    color: #3498db; /* Warna teks */
-    background-color: #f1c40f; /* Warna latar belakang */
+    color: #3498db;
+    background-color: #f1c40f;
   }
 </style>
 ```
@@ -418,7 +418,7 @@ kalian bisa menata teks menggunakan properti seperti `font-size`, `font-family`,
 Contoh:
 
 ```html
-<p class="text">Pemweb seru ya ges ya</p>
+<p class="teks-styling">Pemweb seru ya ges ya</p>
 
 <style>
   .teks-styling {
@@ -448,7 +448,6 @@ button {
   color: black;
 }
 
-/* Pseudo-class akan aktif saat button di-hover */
 button:hover {
   background-color: red;
   color: white;
@@ -544,8 +543,6 @@ Kalian dapat mengamati contoh di bawah ini untuk memahami perbedaan nilai Z-inde
 - `HTML`
 
 ```html
-<!-- Semua Image dalam posisi relative -->
-
 <h1>Statis</h1>
 
 <img src="./senate.webp" />
@@ -712,8 +709,6 @@ Display adalah properti yang menentukan bagaimana elemen ditampilkan atau diatur
   display: inline;
   background-color: lightgreen;
   padding: 10px;
-
-  /* ukuran tidak akan berubah pada display: inline */
   width: 100px;
   height: 100px;
 }
@@ -898,12 +893,10 @@ Konsep utama responsive layout:
    Contoh penggunaan media queries:
 
    ```css
-   /* Style default */
    body {
      font-size: 16px;
    }
 
-   /* Style dengan lebar max 600px */
    @media (max-width: 600px) {
      body {
        font-size: 14px;
@@ -935,7 +928,7 @@ Konsep utama responsive layout:
    }
 
    .item {
-     flex: 1 1 200px; /* Item akan menyesuaikan dengan ukuran minimum 200px */
+     flex: 1 1 200px;
    }
    ```
 
@@ -947,14 +940,12 @@ Konsep utama responsive layout:
      grid-template-columns: repeat(3, 1fr);
    }
 
-   /* Style untuk device dengan lebar layar max 768px */
    @media (max-width: 768px) {
      .grid-container {
        grid-template-columns: repeat(2, 1fr);
      }
    }
 
-   /* Style untuk device dengan lebar layar max 480px */
    @media (max-width: 480px) {
      .grid-container {
        grid-template-columns: 1fr;
