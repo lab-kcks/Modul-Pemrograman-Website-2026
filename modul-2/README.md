@@ -606,3 +606,25 @@ document.querySelector("#parent").addEventListener("click", (event) => {
 - **Tambahan**: Hindari memodifikasi variabel global secara langsung; usahakan setiap fungsi bekerja dengan parameter dan return value yang jelas (mendekati konsep pure function).
 - **Tambahan**: Beri nama variabel dan fungsi yang deskriptif (misalnya `calculateTotalPrice` daripada `calc` atau `x`) agar kode mudah dipahami tanpa perlu banyak komentar tambahan.
 - **Tambahan**: Gunakan `console.log` secukupnya saat development, dan pastikan dihapus/dinonaktifkan sebelum kode di-deploy ke production.
+
+## Challenge 1 (To-Do List Sederhana): 
+
+buatlah aplikasi **To-Do List mini** menggunakan HTML dan JavaScript (boleh tanpa CSS khusus, styling seadanya juga ngga masalah).
+
+### Requirement (wajib)
+
+**1. Menambah Task**
+- Sediakan input teks dan tombol "Add".
+- Saat tombol diklik, tampilkan teks tersebut sebagai item baru di dalam list (`<ul>`).
+- Input kosong tidak boleh ditambahkan (cukup cek dengan if sederhana).
+
+**2. Menghapus Task**
+- Setiap item punya tombol "Delete" di sampingnya.
+- Saat diklik, item tersebut hilang dari list.
+
+### Bonus (opsional)
+- Klik teks task untuk mencoret (`line-through`) sebagai tanda "selesai".
+
+### Ketentuan Teknis
+- Gunakan `let`/`const`.
+- Gunakan `addEventListener`, bukan `onclick` inline.
