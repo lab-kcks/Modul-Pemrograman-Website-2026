@@ -46,6 +46,8 @@ Perbedaan singkat:
 - `let` → nilainya bisa diubah (reassign) setelah dideklarasikan.
 - `const` → nilainya tidak bisa diubah (untuk objek/array, isinya masih bisa diubah, tapi variabelnya tidak bisa di-assign ulang ke value lain).
 
+<img src="./foto/varletconst.jpg">
+
 #### Permasalahan Dengan `var`
 
 Variabel yang dideklarasikan menggunakan `var` akan memiliki scope yang disebut sebagai **function scope**. Dalam JavaScript, hal ini berarti variabel tersebut masih bisa diakses di luar blok (`for`, `if`) yang menyebabkan bug lebih susah dilacak. Sebaliknya, `let` dan `const` memiliki **block scope**, artinya variabel hanya bisa diakses di dalam blok `{ }` tempat ia dideklarasikan.
