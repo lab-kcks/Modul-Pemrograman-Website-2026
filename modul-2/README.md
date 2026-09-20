@@ -634,6 +634,10 @@ Contoh Event Bubbling dalam Visual:
 
 buatlah aplikasi **To-Do List mini** menggunakan HTML dan JavaScript (boleh tanpa CSS khusus, styling seadanya juga ngga masalah).
 
+<img src="./foto/Screenshot 2026-09-20 124501.png">
+
+<img src="./foto/Screenshot 2026-09-20 124602.png">
+
 ### Requirement (wajib)
 
 **1. Menambah Task**
@@ -655,6 +659,12 @@ buatlah aplikasi **To-Do List mini** menggunakan HTML dan JavaScript (boleh tanp
 ## Challenge 2 (Lanjutan To-Do List: Simpan & Filter):
 
 Lanjutkan aplikasi **To-Do List** dari Challenge 1. Di challenge ini kalian cuma perlu nambahin 2 fitur simpel: biar task-nya **gak hilang pas di-refresh**, dan bisa **difilter**.
+
+<img src="./foto/Screenshot 2026-09-20 125431.png">
+
+<img src="./foto/Screenshot 2026-09-20 125436.png">
+
+<img src="./foto/Screenshot 2026-09-20 125439.png">
 
 ### Requirement (wajib)
 
