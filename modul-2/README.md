@@ -628,3 +628,27 @@ buatlah aplikasi **To-Do List mini** menggunakan HTML dan JavaScript (boleh tanp
 ### Ketentuan Teknis
 - Gunakan `let`/`const`.
 - Gunakan `addEventListener`, bukan `onclick` inline.
+
+- ## Challenge 2 (Lanjutan To-Do List: Simpan & Filter):
+
+Lanjutkan aplikasi **To-Do List** dari Challenge 1. Di challenge ini kalian cuma perlu nambahin 2 fitur simpel: biar task-nya **gak hilang pas di-refresh**, dan bisa **difilter**.
+
+### Requirement (wajib)
+
+**1. Simpan Task ke Local Storage**
+- Task yang ditambahkan disimpan ke `localStorage` (pakai `setItem`, data array di-`JSON.stringify()` dulu).
+- Saat halaman dibuka/refresh, ambil lagi task yang tersimpan (`getItem` + `JSON.parse()`) dan tampilkan seperti semula.
+- Setiap ada tambah/hapus task, update juga data di `localStorage`.
+
+**2. Filter Sederhana**
+- Sediakan 2 tombol aja: **All** dan **Completed**.
+- Klik "Completed" → tampilkan cuma task yang sudah ditandai selesai (pakai `Array.filter()`).
+- Klik "All" → tampilkan semua task lagi.
+
+### Bonus (opsional, boleh dilewati)
+- Tambahin tombol "Active" (task yang belum selesai) sebagai filter ketiga.
+
+### Ketentuan Teknis
+- Gunakan `let`/`const`.
+- Gunakan `addEventListener`.
+- Data yang disimpan ke `localStorage` berbentuk array of object, jangan lupa `JSON.stringify()` / `JSON.parse()`.
