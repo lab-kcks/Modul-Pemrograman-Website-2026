@@ -171,6 +171,8 @@ const user = {
 localStorage.setItem("user", JSON.stringify(user));
 ```
 
+<img src="./foto/simulasisintaksjson.jpg">
+
 #### 1.6.2. Mengambil Data dari Local Storage
 
 Untuk mengambil data yang telah disimpan di local storage, gunakan metode `localStorage.getItem()`. Jika datanya adalah string yang di-encode sebagai JSON, gunakan `JSON.parse()` untuk mengubahnya kembali ke objek JavaScript.
@@ -467,6 +469,9 @@ for (let i = 0; i < divs.length; i++) {
 }
 ```
 
+<img src="./foto/NodeList vs HTMLCollection.png">
+
+
 ## 3. Advanced JavaScript
 
 Di bagian ini, kalian akan mempelajari fitur dan konsep lanjutan dalam JavaScript, terutama seputar penanganan operasi yang butuh waktu (asynchronous).
@@ -523,6 +528,8 @@ async function fetchData() {
 fetchData();
 ```
 
+<img src="./foto/javascript event loop call stack diagram.jpg">
+
 ### 3.2. Error Handling
 
 **Try-Catch**: digunakan untuk menangkap error yang mungkin terjadi saat eksekusi kode, agar program tidak langsung berhenti (crash) ketika terjadi error.
@@ -553,6 +560,8 @@ function pesanKamuKeDia() {
 const hasil = pesanKamuKeDia();
 hasil(); // Output: "Haii, sudah makan belum?"
 ```
+
+<img src="./foto/visualisasi_closure_pesan_kamu_ke_dia.png">
 
 ## 4. Expert JavaScript
 
@@ -585,6 +594,11 @@ Penjelasan singkat masing-masing:
 - **`filter`** — menyaring elemen array berdasarkan kondisi tertentu, hasilnya array baru yang isinya lebih sedikit atau sama.
 - **`reduce`** — "meringkas" seluruh elemen array menjadi satu nilai tunggal (bisa angka, objek, array baru, dll), berdasarkan fungsi accumulator yang diberikan.
 
+Contoh Visualisasi Method Array:
+
+<img src="./foto/javascript map filter reduce array diagram.jpg">
+
+
 ### 4.2. Event Delegation
 
 Event Delegation adalah teknik memasang satu event listener pada elemen parent, alih-alih memasang listener di setiap elemen child satu per satu. Ini memanfaatkan konsep **event bubbling** (event yang terjadi pada child akan "menggelembung" ke parent-nya).
@@ -598,6 +612,10 @@ document.querySelector("#parent").addEventListener("click", (event) => {
   }
 });
 ```
+
+Contoh Event Bubbling dalam Visual:
+
+<img src="./foto/javascript event bubbling delegation diagram.jpg">
 
 ### 4.3. Best Practices
 
