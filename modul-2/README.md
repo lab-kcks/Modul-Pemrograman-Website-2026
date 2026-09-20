@@ -546,22 +546,25 @@ try {
 
 Closure terjadi ketika sebuah fungsi "mengingat" variabel dari scope tempat ia dibuat, meskipun fungsi luar tersebut sudah selesai dieksekusi. Ini sangat berguna untuk menyembunyikan (encapsulate) data privat.
 
+Konsep di balik closure adalah **lexical scope chain**: saat JavaScript mencari sebuah variabel, ia akan mencari dari scope paling dalam dulu, lalu naik terus ke scope yang lebih luar sampai variabelnya ketemu (atau sampai ke scope paling luar dan tetap tidak ketemu → error).
+
 Contoh Closures:
 
 ```js
-function pesanKamuKeDia() {
-  const chatKamu = "Kamu dah tidur belum";
-  return function pesanYangDiaSukai() {
-    const chatYangDiaSukai = "Haii, sudah makan belum?";
-    console.log({ chatYangDiaBaca: chatYangDiaSukai });
+const msg = "This is";
+
+function info() {
+  const age = 30;
+  return function () {
+    const name = "Bob";
+    console.log(`${msg} ${name} ${age}`);
   };
 }
 
-const hasil = pesanKamuKeDia();
-hasil(); // Output: "Haii, sudah makan belum?"
+info()();
 ```
+<img src="./foto/lexical-search.jpg">
 
-<img src="./foto/visualisasi_closure_pesan_kamu_ke_dia.png">
 
 ## 4. Expert JavaScript
 
