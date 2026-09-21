@@ -171,7 +171,7 @@ const user = {
 localStorage.setItem("user", JSON.stringify(user));
 ```
 
-<img src="./foto/simulasisintaksjson.jpg">
+<img src="./foto/simulasisintaksjson.png">
 
 #### 1.6.2. Mengambil Data dari Local Storage
 
