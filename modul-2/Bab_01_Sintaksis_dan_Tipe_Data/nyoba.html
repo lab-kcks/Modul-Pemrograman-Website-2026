@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Belajar JS</title>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <h1>Selamat Datang</h1>
+    <p id="teks"> apa yah</p>
+<p id="teks-sambutan">Loading...</p>
+
+<script>
+    document.getElementById("teks-sambutan").textContent = "Halo rek";
+
+    const $user = { nama: "Hikari",  umur: 20};
+
+    $user.umur = 50;
+    console.log ($user.umur);
+</script>
+
+<hr>
+<p>test</p>
+<script>
+  const nama = "Cak Hikari";
+  const teks = `halo ${nama}`;
+  console.log(teks);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Praktik Bab 03: Mengelola Data dengan Array & Object</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 15px;
+      line-height: 1.5;
+      color: #333;
+    }
+    .box {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fafafa;
+    }
+    .output {
+      font-family: monospace;
+      background: #fff;
+      border: 1px dashed #666;
+      padding: 8px 12px;
+      margin-top: 8px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Praktik Bab 03: Array & Object</h1>
+  <p>Buka Developer Tools (F12 &rarr; Console) untuk melihat proses eksekusi kode.</p>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 1: Array & Manipulasi Data Dasar                      -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>1. Array & Manipulasi Data Dasar</h2>
+    <div id="output-array" class="output"></div>
+  </section>
+  <script>
+    // Inisialisasi array awal
+    const tools = ["HTML", "CSS", "JavaScript"];
+    console.log("Array awal:", tools);
+
+    // 1. Menambah di akhir (.push) dan di awal (.unshift)
+    tools.push("Git");
+    tools.unshift("VSCode");
+    console.log("Setelah push & unshift:", tools);
+
+    // 2. Menghapus dari akhir (.pop) dan dari awal (.shift)
+    const itemTerakhir = tools.pop();   // Menghapus "Git"
+    const itemPertama = tools.shift();  // Menghapus "VSCode"
+    console.log(`Dihapus: pertama='${itemPertama}', terakhir='${itemTerakhir}'`);
+
+    // 3. Menyisipkan elemen di indeks ke-1 menggunakan .splice
+    // .splice(posisiMulai, jumlahHapus, itemBaru)
+    tools.splice(1, 0, "TailwindCSS");
+    console.log("Setelah splice sisip:", tools);
+
+    // 4. Pencarian dengan .includes dan .indexOf
+    const punyaJS = tools.includes("JavaScript");
+    const posisiCSS = tools.indexOf("CSS");
+    console.log(`Ada JavaScript? ${punyaJS}, Posisi CSS: indeks ke-${posisiCSS}`);
+
+    // 5. Menampilkan hasil perulangan menggunakan .forEach()
+    let teksTampilan = `Jumlah elemen (.length): ${tools.length}\n\nDaftar Tools:\n`;
+    tools.forEach((item, index) => {
+      teksTampilan += `${index + 1}. ${item}\n`;
+    });
+
+    document.getElementById("output-array").textContent = teksTampilan;
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 2: Object Literals & Array of Objects                 -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>2. Object Literals & Array of Objects</h2>
+    <div id="output-object" class="output"></div>
+    <div id="output-array-of-objects" class="output"></div>
+  </section>
+  <script>
+    // 1. Membuat object tunggal
+    const mahasiswa = {
+      nim: "220101",
+      nama: "Hikari",
+      jurusan: "Teknologi Informasi",
+      semester: 5
+    };
+
+    // Modifikasi: tambah properti baru dan ubah nilai
+    mahasiswa.ipk = 3.88;
+    mahasiswa.semester = 6;
+
+    console.log("Object Mahasiswa:", mahasiswa);
+    console.log("Akses dot:", mahasiswa.nama);
+    console.log("Akses bracket:", mahasiswa["jurusan"]);
+
+    document.getElementById("output-object").textContent = 
+      `Nama: ${mahasiswa.nama} | NIM: ${mahasiswa.nim}\nJurusan: ${mahasiswa.jurusan} (Sem ${mahasiswa.semester}) | IPK: ${mahasiswa.ipk}`;
+
+    // 2. Array of Objects (Struktur data standar dunia nyata)
+    const inventaris = [
+      { id: 101, nama: "Monitor 24 Inch", harga: 1800000, stok: 7 },
+      { id: 102, nama: "Keyboard Mechanical", harga: 650000, stok: 15 },
+      { id: 103, nama: "Mouse Wireless", harga: 220000, stok: 25 }
+    ];
+
+    console.log("Array of Objects (Inventaris):", inventaris);
+
+    // Iterasi Array of Objects dengan forEach
+    let teksInventaris = "DAFTAR INVENTARIS TOKO:\n";
+    inventaris.forEach((barang, i) => {
+      teksInventaris += `[#${barang.id}] ${barang.nama} - Rp ${barang.harga} (Stok: ${barang.stok})\n`;
+    });
+
+    document.getElementById("output-array-of-objects").textContent = teksInventaris;
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 3: Method Array Modern (map & filter)                 -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>3. Method Array Modern: map() & filter()</h2>
+    <div id="output-filter" class="output"></div>
+    <div id="output-map" class="output"></div>
+    <div id="output-chaining" class="output"></div>
+  </section>
+  <script>
+    const dataNilai = [
+      { nama: "Hikari", nilai: 88 },
+      { nama: "Budi", nilai: 52 },
+      { nama: "Siti", nilai: 75 },
+      { nama: "Rizky", nilai: 40 },
+      { nama: "Dewi", nilai: 95 }
+    ];
+    console.log("Data awal mahasiswa:", dataNilai);
+
+    // 1. FILTER: Saring mahasiswa yang lulus (nilai >= 60)
+    // Array asli tidak berubah, filter menghasilkan array baru
+    const mahasiswaLulus = dataNilai.filter(mhs => mhs.nilai >= 60);
+    console.log("Mahasiswa Lulus (filter):", mahasiswaLulus);
+
+    let teksFilter = "MAHASISWA LULUS (nilai >= 60):\n";
+    mahasiswaLulus.forEach(m => {
+      teksFilter += `- ${m.nama} (Nilai: ${m.nilai})\n`;
+    });
+    document.getElementById("output-filter").textContent = teksFilter;
+
+    // 2. MAP: Transformasi data dengan menambahkan status kelulusan
+    const hasilEvaluasi = dataNilai.map(mhs => {
+      return {
+        nama: mhs.nama,
+        nilai: mhs.nilai,
+        status: mhs.nilai >= 60 ? "LULUS" : "REMEDIAL"
+      };
+    });
+    console.log("Hasil Evaluasi (map):", hasilEvaluasi);
+
+    let teksMap = "HASIL EVALUASI SEMUA MAHASISWA (.map):\n";
+    hasilEvaluasi.forEach(m => {
+      teksMap += `- ${m.nama}: ${m.nilai} [${m.status}]\n`;
+    });
+    document.getElementById("output-map").textContent = teksMap;
+
+    // 3. METHOD CHAINING: Filter dulu yang remed, lalu ambil namanya saja (.map)
+    const namaRemedial = dataNilai
+      .filter(mhs => mhs.nilai < 60)
+      .map(mhs => mhs.nama);
+    console.log("Nama Mahasiswa Remedial (chaining filter -> map):", namaRemedial);
+
+    document.getElementById("output-chaining").textContent = 
+      `Daftar Nama yang Harus Remedial (Chaining):\n${namaRemedial.join(", ")}`;
+  </script>
+
+</body>
+</html>

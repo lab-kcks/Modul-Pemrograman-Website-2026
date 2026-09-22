@@ -1,0 +1,313 @@
+c<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Praktik Bab 02: Percabangan, Looping, & Fungsi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 750px;
+      margin: 20px auto;
+      padding: 0 15px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .materi {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      background-color: #fafafa;
+    }
+    .hasil {
+      background-color: #eef;
+      padding: 8px 12px;
+      border-left: 4px solid #339;
+      margin-top: 8px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Praktik Bab 02: Percabangan, Looping, & Fungsi</h1>
+  <p><em>Buka tab <strong>Console di DevTools (Tekan F12)</strong> saat membuka halaman ini untuk melihat output alur logika langsung!</em></p>
+
+  <h2>1. Pembuktian Sub-Bab 01: Percabangan Logika</h2>
+
+  <div class="materi">
+    <h3>A. Pengondisian if, else if, else</h3>
+    <p class="hasil" id="hasil-grade"></p>
+    <script>
+      const nilaiUjian = 82;
+      let grade = "";
+
+      if (nilaiUjian >= 85) {
+        grade = "A (Sangat Baik)";
+      } else if (nilaiUjian >= 70) {
+        grade = "B (Baik)";
+      } else if (nilaiUjian >= 60) {
+        grade = "C (Cukup)";
+      } else {
+        grade = "D (Remedial)";
+      }
+
+      console.log(`Nilai ${nilaiUjian} mendapatkan Grade:`, grade);
+      document.getElementById("hasil-grade").textContent = `Nilai: ${nilaiUjian} -> Grade: ${grade}`;
+    
+      let jumlahSkor = 0;
+
+      let skorSalah = jumlahSkor || 10; // Menghasilkan 10 (karena 0 dianggap falsy oleh ||)
+      let skorBenar = jumlahSkor ?? "default"; // Menghasilkan 0 (karena 0 BUKAN null/undefined. Ini lebih akurat!)
+      console.log(skorBenar)
+    
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>B. Ternary Operator (? :)</h3>
+    <p class="hasil" id="hasil-ternary"></p>
+    <script>
+      const nilaiAkhir = 73;
+      const contohNilai = 18;
+      // Format: kondisi ? nilaiJikaTrue : nilaiJikaFalse
+      const statusLulus = nilaiAkhir >= 75 ? "LULUS" : "REMEDIAL";
+      const statusUmur = contohNilai >= 18 ? "Boleh" : "tidak boleh";
+      console.log("status", statusUmur);
+
+      
+
+      console.log("Status kelulusan (Ternary):", statusLulus);
+      document.getElementById("hasil-ternary").textContent = `Nilai ${nilaiAkhir}: ${statusLulus}`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>C. Pembuktian Truthy vs Falsy</h3>
+    <p class="hasil" id="hasil-falsy"></p>
+    <script>
+      // 6 Nilai Falsy diuji di dalam if:
+      const dataKosong = "";
+      const angkaNol = 0;
+      const arrayKosong = []; // Perhatian: array kosong adalah TRUTHY!
+
+      let teksHasil = "";
+
+      if (dataKosong) {
+        teksHasil += "dataKosong adalah Truthy | ";
+      } else {
+        teksHasil += "dataKosong adalah FALSY | ";
+      }
+
+      if (arrayKosong) {
+        teksHasil += "arrayKosong ([]) adalah TRUTHY!";
+      } else {
+        teksHasil += "arrayKosong adalah FALSY!";
+      }
+
+      console.log("String kosong bernilai falsy, array kosong bernilai truthy");
+      document.getElementById("hasil-falsy").textContent = teksHasil;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>D. Default Value: || (Falsy) vs ?? (Null/Undefined)</h3>
+    <p class="hasil" id="hasil-nullish"></p>
+    <script>
+      // Studi kasus: skor game awal pemain adalah 0
+      const skorPemain = 0;
+
+      // || salah menganggap 0 sebagai falsy, sehingga menggantinya dengan 10
+      const defaultDenganOR = skorPemain || 10;
+      
+      // ?? (Nullish Coalescing) hanya aktif jika bernilai null atau undefined (angka 0 tetap aman)
+      const defaultDenganNullish = skorPemain ?? 10;
+
+      console.log("Skor dengan ||:", defaultDenganOR);
+      console.log("Skor dengan ?? (tepat):", defaultDenganNullish);
+
+      document.getElementById("hasil-nullish").textContent = 
+        `Skor asli: ${skorPemain} -> || menghasilkan: ${defaultDenganOR} | ?? menghasilkan: ${defaultDenganNullish}`;
+    </script>
+  </div>
+
+  <hr style="margin: 30px 0;">
+  <h2>2. Pembuktian Sub-Bab 02: Fungsi Modern</h2>
+
+  <div class="materi">
+    <h3>A. Function Declaration & Bukti Hoisting</h3>
+    <p class="hasil" id="hasil-hoisting"></p>
+    <p class="hasil" id="hasil-hoisting2"></p>
+
+    <script>
+      // Catatan: Fungsi ini bisa dipanggil DI SINI (sebelum baris deklarasinya) karena hoisting
+      const hasilSebelum = hitungLuasPersegi(4);
+      
+      function hitungLuasPersegi(sisi) {
+        return sisi * sisi;
+      }
+      
+      console.log("Hasil luas persegi (dipanggil sebelum deklarasi):", hasilSebelum);
+      document.getElementById("hasil-hoisting").textContent = 
+      `Luas persegi sisi 4 = ${hasilSebelum} (Berhasil dipanggil berkat Hoisting!)`;
+
+      const cobaAja = hitungSegitiga(2,3);
+
+      function hitungSegitiga(a, t){
+        return 1/2 * a * t;  
+      }
+
+    document.getElementById("hasil-hoisting2").textContent = 
+      `Luas segitiga = ${cobaAja} (Berhasil dipanggil berkat Hoisting!)`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>B. Arrow Function (Sintaks Ringkas 1 Baris)</h3>
+    <p class="hasil" id="hasil-arrow"></p>
+    <script>
+      // 1 Parameter tanpa kurung, 1 baris tanpa kurung kurawal & tanpa kata kunci return (implicit return)
+      const hitungDiskon10 = harga => harga * 0.1;
+      const nominalDiskon = hitungDiskon10(50000);
+
+      const bayar = 100;
+      const hitung = nilai => (100 - nilai) * bayar;
+      console.log (hitung(10));
+      
+      // Arrow function multi-baris standar
+      const hitungTotalBayar = (harga, diskon) => {
+        const total = harga - diskon;
+        return total;
+      };
+      const totalAkhir = hitungTotalBayar(50000, nominalDiskon);
+
+      console.log("Nominal diskon 10% dari 50000:", nominalDiskon);
+      console.log("Total akhir bayar:", totalAkhir);
+
+      document.getElementById("hasil-arrow").textContent = 
+        `Harga: 50000 -> Diskon: ${nominalDiskon} -> Total Bayar: ${totalAkhir}`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>C. Default Parameter & Return Value</h3>
+    <p class="hasil" id="hasil-default-param"></p>
+    <script>
+      const cetakProfil = (nama = "Tamu", semester = 1) => {
+        return `Nama: ${nama} | Semester: ${semester}`;
+      };
+
+      const profilLengkap = cetakProfil("Hikari", 5);
+      const profilDefault = cetakProfil(); // Memakai nilai default
+
+      console.log("Profil Lengkap:", profilLengkap);
+      console.log("Profil Default:", profilDefault);
+
+      document.getElementById("hasil-default-param").textContent = 
+        `Diisi: (${profilLengkap}) vs Kosong: (${profilDefault})`;
+    </script>
+  </div>
+
+  <hr style="margin: 30px 0;">
+  <h2>3. Pembuktian Sub-Bab 03: Perulangan Praktis (for, while, break, continue)</h2>
+
+  <div class="materi">
+    <h3>A. for Loop (Menghitung Total Angka 1 s/d 5)</h3>
+    <p class="hasil" id="hasil-for"></p>
+    <script>
+      let totalJumlah = 0;
+      let langkahLoop = [];
+
+      for (let i = 1; i <= 5; i++) {
+        totalJumlah += i;
+        langkahLoop.push(`+${i}`);
+      }
+
+      let totalCuy = 0;
+      let looping = [];
+
+      for (let b = 1; b <= 10; b++) {
+        totalCuy = b ;
+        console.log("loop ke-", totalCuy);
+      }
+      
+      console.log("Total dari 1+2+3+4+5:", totalJumlah);
+      document.getElementById("hasil-for").textContent = 
+        `Proses: ${langkahLoop.join(" ")} = ${totalJumlah}`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>B. Pengendali Alur: break vs continue</h3>
+    <p class="hasil" id="hasil-break-continue"></p>
+    <script>
+      let deretContinue = [];
+      for (let i = 1; i <= 5; i++) {
+        if (i === 3) continue; // Angka 3 dilewati
+        deretContinue.push(i);
+      }
+
+      let deretBreak = [];
+      for (let i = 1; i <= 5; i++) {
+        if (i === 4) break; // Berhenti total saat ketemu 4
+        deretBreak.push(i);
+      }
+
+      console.log("Hasil continue (lewati 3):", deretContinue);
+      console.log("Hasil break (stop di 4):", deretBreak);
+
+      document.getElementById("hasil-break-continue").textContent = 
+        `continue lewati 3: [${deretContinue.join(", ")}] | break stop di 4: [${deretBreak.join(", ")}]`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>C. while Loop (Simulasi Baterai Berkurang)</h3>
+    <p class="hasil" id="hasil-while"></p>
+    <script>
+      let baterai = 100;
+      let riwayatBaterai = [];
+
+      while (baterai > 20) {
+        riwayatBaterai.push(`${baterai}%`);
+        baterai -= 25;
+      }
+
+      console.log("Riwayat baterai sebelum lowbat:", riwayatBaterai);
+      document.getElementById("hasil-while").textContent = 
+        `Status baterai tiap putaran: ${riwayatBaterai.join(" -> ")} -> Peringatan Lowbat!`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>D. Modern for...of Loop pada Array</h3>
+    <p class="hasil" id="hasil-for-of"></p>
+    <script>
+      const daftarMatkul = ["Pemrograman Web", "Basis Data", "Jaringan"];
+      const daftarAnak = ["Yanto", "Nas", "Yafi"];
+
+      let teksAnak = [];
+
+      for (const anak of daftarAnak){
+        teksAnak.push(`${anak}`);
+      }
+
+      console.log(teksAnak);
+
+      let teksMatkul = [];
+
+      for (const matkul of daftarMatkul) {
+        teksMatkul.push(`[${matkul}]`);
+      }
+
+      console.log("Data via for...of:", teksMatkul);
+      document.getElementById("hasil-for-of").textContent = 
+        `Mata kuliah terdaftar: ${teksMatkul.join(" ")}`;
+
+      docu
+        
+    </script>
+  </div>
+
+</body>
+</html>

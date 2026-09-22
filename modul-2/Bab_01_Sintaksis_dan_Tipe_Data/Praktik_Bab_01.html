@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Praktik Bab 01: Sintaksis & Tipe Data JS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 750px;
+      margin: 20px auto;
+      padding: 0 15px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .materi {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      background-color: #fafafa;
+    }
+    .hasil {
+      background-color: #eef;
+      padding: 8px 12px;
+      border-left: 4px solid #339;
+      margin-top: 8px;
+      font-family: monospace;
+    }
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Praktik Bab 01: Sintaksis & Tipe Data JavaScript</h1>
+  <p><em>Buka tab <strong>Console di DevTools (Tekan F12)</strong> saat membuka halaman ini untuk melihat output pembuktian langsung!</em></p>
+
+  <h2>1. Pembuktian Sub-Bab 01: Menghubungkan JS & Output</h2>
+
+  <div class="materi">
+    <h3>A. Inline JavaScript</h3>
+    <p>Dipasang langsung pada atribut tag HTML:</p>
+    <button onclick="alert('Halo rek, ini muncul dari inline onclick!')">Klik Saya (Inline)</button>
+  </div>
+
+  <div class="materi">
+    <h3>B. Menulis Output ke Elemen DOM</h3>
+    <p id="teks-sambutan">Teks awal di HTML...</p>
+    <script>
+      document.getElementById("teks-sambutan").textContent = "Halo rek, teks ini diubah langsung oleh JavaScript!";
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>C. Dialog Browser: prompt() dan confirm()</h3>
+    <p>Klik tombol untuk memicu dialog bawaan browser:</p>
+    <button onclick="tesPrompt()">Coba prompt()</button>
+    <button onclick="tesConfirm()">Coba confirm()</button>
+    <p class="hasil" id="hasil-dialog">Hasil dialog akan muncul di sini.</p>
+
+    <script>
+      function tesPrompt() {
+        const bahasa = prompt("Masukkan bahasa pemrograman favoritmu:", "JavaScript");
+        document.getElementById("hasil-dialog").textContent = "Prompt diisi: " + bahasa;
+        console.log("Hasil prompt:", bahasa);
+      }
+
+      function tesConfirm() {
+        const yakin = confirm("Apakah kamu yakin?");
+        document.getElementById("hasil-dialog").textContent = "Hasil confirm: " + yakin;
+        console.log("Hasil confirm:", yakin);
+      }
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>D. Console Output (Cek Tab F12)</h3>
+    <p>Kode di bawah ini langsung dieksekusi saat halaman dimuat. Cek tab Console (F12)!</p>
+    <script>
+      console.log("1. Ini pesan biasa via console.log()");
+      console.warn("2. Ini peringatan via console.warn()");
+      console.error("3. Ini pesan error via console.error()");
+      console.table([
+        { matkul: "Pemrograman Web", sks: 3 },
+        { matkul: "Basis Data", sks: 3 }
+      ]);
+    </script>
+  </div>
+
+  <hr style="margin: 30px 0;">
+  <h2>2. Pembuktian Sub-Bab 02: Variabel & Scope</h2>
+
+  <div class="materi">
+    <h3>A. Re-assignment: let (Bisa Diubah) vs const (Tetap)</h3>
+    <p class="hasil" id="hasil-reassign"></p>
+    <script>
+      let skor = 50;
+      skor = 100;
+      console.log("Nilai skor (let) setelah diubah:", skor);
+
+      const phi = 3.14;
+      // phi = 3.1415; // Catatan penting: jika baris ini diaktifkan akan TypeError (const tidak bisa di-reassign)
+      console.log("Nilai phi (const):", phi);
+
+      document.getElementById("hasil-reassign").textContent = "skor (let) = " + skor + " | phi (const) = " + phi;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>B. Pembuktian Scope: var (Bocor ke Luar) vs let (Aman di dalam {})</h3>
+    <p class="hasil" id="hasil-scope"></p>
+    <script>
+      if (true) {
+        var kota = "Surabaya";   // var tidak terikat blok {}, sehingga bocor ke luar
+        let negara = "Indonesia"; // let terkunci di dalam blok {}
+      }
+
+      console.log("Akses kota (var) di luar blok:", kota); // Berhasil diakses (bocor)
+      // console.log(negara); // Catatan penting: jika diaktifkan akan ReferenceError karena negara di luar scope
+
+      document.getElementById("hasil-scope").textContent = "var kota bocor ke luar: " + kota + " (Cek console log)";
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>C. Mutasi Properti pada const Object & Array</h3>
+    <p class="hasil" id="hasil-mutasi"></p>
+    <script>
+      // Catatan penting: const mengunci wadahnya, namun isi properti objek/elemen array tetap bisa dimutasi
+      const $user = { 
+        nama: "Hikari", 
+        umur: 20 
+      };
+      $user.umur = 50;
+      console.log("Objek $user setelah umur diubah:", $user);
+
+      const daftarNilai = [80, 90];
+      daftarNilai.push(100);
+      console.log("Array daftarNilai:", daftarNilai);
+
+      document.getElementById("hasil-mutasi").textContent = "User: " + $user.nama + ", Umur baru: " + $user.umur + " | Array: [" + daftarNilai.join(", ") + "]";
+    </script>
+  </div>
+
+  <hr style="margin: 30px 0;">
+  <h2>3. Pembuktian Sub-Bab 03: Tipe Data, Template Literals, & Operator</h2>
+
+  <div class="materi">
+    <h3>A. Tipe Data Primitif & Operator typeof</h3>
+    <p class="hasil" id="hasil-tipedata"></p>
+    <script>
+      const teks = "Belajar JS";
+      const angka = 100;
+      const desimal = 3.14;
+      const isAktif = true;
+      let belumDiisi;
+      const dataKosong = null;
+      const testing = "halo";
+
+      console.log("typeof", typeof testing)
+      console.log("typeof teks:", typeof teks);
+      console.log("typeof angka:", typeof angka);
+      console.log("typeof isAktif:", typeof isAktif);
+      console.log("typeof belumDiisi:", typeof belumDiisi);
+      // Catatan: typeof null menghasilkan "object" karena perilaku bawaan (bug historis) JS sejak awal dibuat
+      console.log("typeof dataKosong (null):", typeof dataKosong);
+
+      document.getElementById("hasil-tipedata").textContent = 
+        `teks: ${typeof teks} | angka: ${typeof angka} | isAktif: ${typeof isAktif} | dataKosong: ${typeof dataKosong}`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>B. Template Literals (Backtick)</h3>
+    <p class="hasil" id="hasil-template"></p>
+    <script>
+      const namaMhs = "Hikari";
+      const semester = 5;
+
+      const gabungBiasa = "Halo " + namaMhs + ", sekarang semester " + semester;
+      const templateLiteral = `Halo ${namaMhs}, sekarang semester ${semester}. Semester depan: ${semester + 1}`;
+
+      console.log("Template Literals:", templateLiteral);
+      document.getElementById("hasil-template").textContent = templateLiteral;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>C. Perbandingan: == (Loose) vs === (Strict)</h3>
+    <p class="hasil" id="hasil-perbandingan"></p>
+    <script>
+      const angka5 = 5;
+      const teks5 = "5";
+
+      // == hanya membandingkan nilai setelah konversi otomatis (type coercion)
+      const hasilLoose = (angka5 == teks5); // true
+      // === membandingkan nilai DAN tipe data sekaligus (standar wajib industri)
+      const hasilStrict = (angka5 === teks5); // false
+
+      console.log("5 == '5' (Loose):", hasilLoose);
+      console.log("5 === '5' (Strict):", hasilStrict);
+      console.log("0 == false (Loose):", 0 == false);
+      console.log("0 === false (Strict):", 0 === false);
+
+      document.getElementById("hasil-perbandingan").textContent = 
+        `5 == "5" adalah ${hasilLoose} | 5 === "5" adalah ${hasilStrict}`;
+    </script>
+  </div>
+
+  <div class="materi">
+    <h3>D. Logika & Konversi Tipe Data Eksplisit</h3>
+    <p class="hasil" id="hasil-logika"></p>
+    <script>
+      const inputForm = "25000";
+      // Bahaya konversi otomatis: "25000" + 5000 menjadi "250005000" (string)
+      const salahHitung = inputForm + 5000;
+      // Benar: konversi eksplisit dengan Number()
+      const benarHitung = Number(inputForm) + 5000;
+
+      const cobaHitung = Number(inputForm) + 30000;
+
+      const isLulus = true;
+      const isAktifOrganisasi = false;
+      const berhakBeasiswa = isLulus && (benarHitung < 50000);
+
+      console.log("Salah hitung ('25000' + 5000):", salahHitung);
+      console.log("Benar hitung (Number('25000') + 5000):", benarHitung);
+      console.log("Hasil logika beasiswa:", berhakBeasiswa);
+
+      document.getElementById("hasil-logika").textContent = 
+        `Salah: ${salahHitung} | Benar (Number): ${benarHitung} | Logika Beasiswa: ${berhakBeasiswa}`;
+    </script>
+  </div>
+
+</body>
+</html>

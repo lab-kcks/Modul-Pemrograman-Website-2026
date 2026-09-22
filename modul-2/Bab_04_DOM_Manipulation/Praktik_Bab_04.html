@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Praktik Bab 04: DOM Manipulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 15px;
+      line-height: 1.5;
+      color: #333;
+    }
+    .box {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fafafa;
+    }
+    .daftar-badge {
+      display: flex;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .badge {
+      background: #e0e0e0;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+    .output {
+      font-family: monospace;
+      background: #fff;
+      border: 1px dashed #666;
+      padding: 8px 12px;
+      margin-top: 8px;
+      white-space: pre-line;
+    }
+    .notif {
+      padding: 10px;
+      border-radius: 4px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    .notif-sukses {
+      background-color: #e6ffed;
+      border-color: #52c41a;
+      color: #237804;
+    }
+    .notif-error {
+      background-color: #fff1f0;
+      border-color: #ffa39e;
+      color: #cf1322;
+    }
+    .mode-gelap {
+      background-color: #222 !important;
+      color: #fff !important;
+      border-color: #444 !important;
+    }
+    .btn-group {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-group button {
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Praktik Bab 04: DOM Manipulation</h1>
+  <p>Buka Developer Tools (F12 &rarr; Console) untuk melihat objek DOM yang diseleksi.</p>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 1: Seleksi Elemen Web                                 -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>1. Seleksi Elemen Web (DOM Selection)</h2>
+
+    <h3 id="teks-header">Judul Awal (Target getElementById)</h3>
+    <p class="paragraf-info">Paragraf info pertama (Target querySelector).</p>
+    <p class="paragraf-info">Paragraf info kedua.</p>
+
+    <div class="daftar-badge">
+      <span class="badge">HTML5</span>
+      <span class="badge">CSS3</span>
+      <span class="badge">JavaScript</span>
+    </div>
+
+    <div id="output-seleksi" class="output"></div>
+  </section>
+  <script>
+    // 1. Seleksi ID tunggal dengan getElementById (tanpa tanda #)
+    const elHeader = document.getElementById("teks-header");
+    console.log("Elemen by ID:", elHeader);
+
+    // 2. Seleksi elemen PERTAMA dengan querySelector (wajib pakai titik . untuk class)
+    const elInfoPertama = document.querySelector(".paragraf-info");
+    console.log("Elemen Pertama by querySelector:", elInfoPertama);
+
+    // 3. Seleksi SEMUA elemen yang cocok dengan querySelectorAll
+    // Menghasilkan NodeList (kumpulan elemen)
+    const semuaBadge = document.querySelectorAll(".badge");
+    console.log("Kumpulan Elemen (NodeList):", semuaBadge);
+
+    // Iterasi NodeList menggunakan .forEach()
+    let ringkasanBadge = [];
+    semuaBadge.forEach((badge, index) => {
+      ringkasanBadge.push(`[Index ${index}]: ${badge.textContent}`);
+    });
+
+    // Buktikan hasil seleksi ke layar
+    document.getElementById("output-seleksi").textContent = 
+      `Hasil getElementById   : "${elHeader.textContent}"\n` +
+      `Hasil querySelector    : "${elInfoPertama.textContent}"\n` +
+      `Hasil querySelectorAll : Ditemukan ${semuaBadge.length} badge:\n` +
+      ringkasanBadge.join("\n");
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 2: Mengubah Konten & Gaya (textContent, innerHTML, style, classList) -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>2. Mengubah Konten & Gaya Tampilan</h2>
+
+    <p id="target-teks">Teks default sebelum diubah.</p>
+    <div id="target-html">Area HTML sebelum diubah.</div>
+
+    <hr style="margin: 15px 0; border: none; border-top: 1px solid #eee;">
+
+    <!-- Target demonstrasi interaktif classList -->
+    <div id="kotak-notifikasi" class="notif">Status: Kotak Notifikasi Standar</div>
+
+    <div class="btn-group">
+      <button id="btn-add-error">1. Pasang Error (.add)</button>
+      <button id="btn-remove-error">2. Hapus Error (.remove)</button>
+      <button id="btn-toggle-gelap">3. Saklar Mode Gelap (.toggle)</button>
+    </div>
+
+    <div id="info-classlist" class="output">Class aktif saat ini: notif</div>
+  </section>
+  <script>
+    // 1. textContent (Mengisi teks murni, tag HTML tidak dirender)
+    const elTeks = document.getElementById("target-teks");
+    elTeks.textContent = "Teks ini diubah via textContent: <b>Tebal? Tidak, tetap teks biasa!</b>";
+
+    // 2. innerHTML (Merender tag HTML menjadi elemen visual nyata)
+    const elHtml = document.getElementById("target-html");
+    elHtml.innerHTML = "<p>Ini dirender via <strong>innerHTML</strong>: <span style='color: #0066cc;'>Teks Berwarna & Tebal</span></p>";
+
+    // 3. Mengubah gaya langsung via element.style (camelCase)
+    const elNotif = document.getElementById("kotak-notifikasi");
+    elNotif.style.fontWeight = "bold";
+
+    // 4. Demonstrasi interaktif classList
+    const infoClass = document.getElementById("info-classlist");
+
+    function updateInfoClass() {
+      infoClass.textContent = 
+        `Daftar class saat ini di elemen: "${elNotif.className}"\n` +
+        `Apakah punya class 'notif-error'? : ${elNotif.classList.contains("notif-error")}\n` +
+        `Apakah punya class 'mode-gelap'?  : ${elNotif.classList.contains("mode-gelap")}`;
+    }
+
+    // A. .add() -> Menambah class 'notif-error'
+    document.getElementById("btn-add-error").addEventListener("click", () => {
+      elNotif.classList.add("notif-error");
+      elNotif.textContent = "Status: Terjadi Kesalahan! (class 'notif-error' ditambahkan)";
+      updateInfoClass();
+    });
+
+    // B. .remove() -> Menghapus class 'notif-error'
+    document.getElementById("btn-remove-error").addEventListener("click", () => {
+      elNotif.classList.remove("notif-error");
+      elNotif.textContent = "Status: Kesalahan Dihapus (class 'notif-error' dicabut)";
+      updateInfoClass();
+    });
+
+    // C. .toggle() -> Saklar: tambah jika belum ada, hapus jika sudah ada
+    document.getElementById("btn-toggle-gelap").addEventListener("click", () => {
+      elNotif.classList.toggle("mode-gelap");
+      updateInfoClass();
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 3: Membuat & Menghapus Elemen Dinamis                 -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>3. Membuat & Menghapus Elemen Dinamis</h2>
+
+    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+      <input type="text" id="input-tugas-baru" placeholder="Tulis nama tugas..." style="flex: 1; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
+      <button id="btn-tambah-tugas" style="padding: 6px 14px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">+ Tambah</button>
+      <button id="btn-reset-semua" style="padding: 6px 12px; background: #eee; border: 1px solid #ccc; border-radius: 4px; cursor: pointer;">Reset Semua</button>
+    </div>
+
+    <!-- Wadah list dinamis -->
+    <ul id="daftar-tugas" style="list-style: none; padding: 0; margin: 0;">
+      <!-- Elemen awal statis -->
+      <li class="item-tugas" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; margin-bottom: 6px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+        <span>Tugas 1: Membaca materi Bab 04</span>
+        <button class="btn-hapus-item" style="padding: 2px 8px; cursor: pointer; color: red; border: 1px solid #ffccc7; background: #fff1f0; border-radius: 3px;">Hapus</button>
+      </li>
+    </ul>
+  </section>
+  <script>
+    const inputTugas = document.getElementById("input-tugas-baru");
+    const btnTambah = document.getElementById("btn-tambah-tugas");
+    const btnReset = document.getElementById("btn-reset-semua");
+    const wadahTugas = document.getElementById("daftar-tugas");
+
+    // Event hapus untuk elemen statis awal
+    const btnHapusAwal = wadahTugas.querySelector(".btn-hapus-item");
+    if (btnHapusAwal) {
+      btnHapusAwal.addEventListener("click", (e) => {
+        e.target.parentElement.remove(); // Menghapus li induknya
+      });
+    }
+
+    // buat elemen baru secara dinamis via createElement & append
+    btnTambah.addEventListener("click", () => {
+      const teks = inputTugas.value.trim();
+      if (teks === "") return;
+
+      // Langkah 1: Buat elemen li di memori
+      const liBaru = document.createElement("li");
+      liBaru.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; margin-bottom: 6px; background: #fff; border: 1px solid #ddd; border-radius: 4px;";
+
+      // Langkah 2: Lengkapi isinya (teks tugas + tombol hapus)
+      const spanTeks = document.createElement("span");
+      spanTeks.textContent = teks;
+
+      const btnHapus = document.createElement("button");
+      btnHapus.textContent = "Hapus";
+      btnHapus.style.cssText = "padding: 2px 8px; cursor: pointer; color: red; border: 1px solid #ffccc7; background: #fff1f0; border-radius: 3px;";
+
+      // Pasang event remove langsung ke tombol baru
+      btnHapus.addEventListener("click", () => {
+        liBaru.remove(); // Elemen liBaru dihapus dari DOM
+      });
+
+      // Susun elemen anak ke dalam liBaru
+      liBaru.append(spanTeks, btnHapus);
+
+      // Langkah 3: Tempelkan liBaru ke dalam wadah (daftar-tugas)
+      wadahTugas.append(liBaru);
+
+      // Bersihkan input
+      inputTugas.value = "";
+      //inputTugas.focus(); tambahan dari AI
+    });
+
+    // 3. Mengosongkan seluruh wadah dengan innerHTML = ""
+    btnReset.addEventListener("click", () => {
+      wadahTugas.innerHTML = "";
+    });
+  </script>
+
+</body>
+</html>

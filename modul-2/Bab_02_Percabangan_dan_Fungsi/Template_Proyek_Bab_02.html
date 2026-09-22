@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Proyek Bab 02: Sistem Penilai Akademik</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 0 15px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 6px;
+      background-color: #fafafa;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #004c99;
+    }
+    .hasil-box {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px dashed #666;
+      border-radius: 4px;
+      font-family: monospace;
+      white-space: pre-line;
+      display: none; /* Munculkan lewat JS setelah tombol diklik */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Sistem Penilai Akademik Mahasiswa</h1>
+  <p>Lengkapi fungsi-fungsi JavaScript di bawah untuk mengevaluasi nilai.</p>
+
+  <div class="card">
+    <div class="form-group">
+      <label for="input-nama">Nama Mahasiswa:</label>
+      <input type="text" id="input-nama" placeholder="Contoh: Hikari">
+    </div>
+
+    <div class="form-group">
+      <label for="input-tugas">Nilai Tugas (30%):</label>
+      <input type="number" id="input-tugas" placeholder="0 - 100">
+    </div>
+
+    <div class="form-group">
+      <label for="input-uts">Nilai UTS (35%):</label>
+      <input type="number" id="input-uts" placeholder="0 - 100">
+    </div>
+
+    <div class="form-group">
+      <label for="input-uas">Nilai UAS (35%):</label>
+      <input type="number" id="input-uas" placeholder="0 - 100">
+    </div>
+
+    <button id="btn-evaluasi">Evaluasi Nilai Mahasiswa</button>
+
+    <div class="hasil-box" id="hasil-evaluasi"></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- KERJAKAN LOGIKA JAVASCRIPT ANDA DI DALAM TAG SCRIPT BERIKUT  -->
+  <!-- ============================================================ -->
+  <script>
+    // Tulis kode JavaScript Anda di sini.
+    // 1. Buat fungsi hitungNilaiAkhir(tugas, uts, uas)
+    // 2. Buat fungsi tentukanGrade(nilaiAkhir)
+    // 3. Buat fungsi cekKelulusan(nilaiAkhir) menggunakan Ternary Operator (? :)
+    // 4. Pasang event listener click pada tombol btn-evaluasi
+    // 5. Validasi input (rentang 0 - 100)
+    // 6. Gunakan looping untuk mencetak komponen rincian penilaian
+    // 7. Tampilkan hasil evaluasi ke elemen hasil-evaluasi dan console.log
+    
+  </script>
+</body>
+</html>

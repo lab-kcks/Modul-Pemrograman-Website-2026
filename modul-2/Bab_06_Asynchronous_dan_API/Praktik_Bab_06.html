@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Praktik Bab 06: Asynchronous JS & Fetch API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 750px;
+      margin: 20px auto;
+      padding: 0 15px;
+      line-height: 1.5;
+      color: #333;
+    }
+    .box {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fafafa;
+    }
+    button {
+      padding: 7px 14px;
+      border-radius: 4px;
+      border: 1px solid #999;
+      background: #fff;
+      cursor: pointer;
+    }
+    button.primary {
+      background: #0066cc;
+      color: white;
+      border: none;
+    }
+    button.danger {
+      background: #fff1f0;
+      border: 1px solid #ffa39e;
+      color: #cf1322;
+    }
+    .output {
+      font-family: monospace;
+      background: #fff;
+      border: 1px dashed #666;
+      padding: 8px 12px;
+      margin-top: 8px;
+      white-space: pre-line;
+    }
+    .grid-user {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .card-user {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .card-user h4 {
+      margin: 0 0 4px 0;
+      color: #0066cc;
+    }
+    .card-user p {
+      margin: 2px 0;
+      font-size: 12px;
+      color: #555;
+    }
+    .status-msg {
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 8px;
+      font-style: italic;
+    }
+    .loading {
+      background: #e6f7ff;
+      color: #096dd9;
+      border: 1px solid #91d5ff;
+    }
+    .error {
+      background: #fff1f0;
+      color: #cf1322;
+      border: 1px solid #ffa39e;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Praktik Bab 06: Asynchronous JS & Fetch API</h1>
+  <p>Buka Developer Tools (F12 &rarr; Console & Network) untuk memantau lalu lintas data internet.</p>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 1: Konsep Asynchronous vs Synchronous                 -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>1. Konsep Asynchronous (Non-Blocking)</h2>
+    <p>Klik tombol di bawah untuk melihat bagaimana JavaScript tidak memblokir antrean saat ada timer 1.5 detik.</p>
+
+    <button id="btn-uji-async" class="primary">Jalankan Uji Asynchronous</button>
+    <div id="output-async" class="output">Klik tombol untuk memulai simulasi...</div>
+  </section>
+  <script>
+    const btnUjiAsync = document.getElementById("btn-uji-async");
+    const outputAsync = document.getElementById("output-async");
+
+    btnUjiAsync.addEventListener("click", () => {
+      let log = [];
+      log.push("1. [Sync] Perintah pertama dijalankan.");
+      outputAsync.textContent = log.join("\n");
+
+      // Menjalankan tugas di latar belakang (Web APIs)
+      setTimeout(() => {
+        log.push("3. [Async] Timer 1.5 detik selesai! Tugas latar belakang terpanggil.");
+        outputAsync.textContent = log.join("\n");
+      }, 1500);
+
+      log.push("2. [Sync] Perintah berikutnya LANGSUNG dieksekusi tanpa menunggu timer!");
+      outputAsync.textContent = log.join("\n");
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 2: Modern async / await, fetch(), & try...catch       -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>2. Fetch API & Penanganan Error (try...catch)</h2>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button id="btn-fetch-sukses" class="primary">1. Fetch Post #1 (Sukses)</button>
+      <button id="btn-fetch-error" class="danger">2. Uji URL Rusak (Error Handling)</button>
+    </div>
+
+    <div id="output-fetch" class="output">Hasil request akan tampil di sini...</div>
+  </section>
+  <script>
+    const btnFetchSukses = document.getElementById("btn-fetch-sukses");
+    const btnFetchError = document.getElementById("btn-fetch-error");
+    const outputFetch = document.getElementById("output-fetch");
+
+    // Fungsi fetch dengan async/await dan try-catch
+    async function ambilPost(url) {
+      outputFetch.textContent = "Menghubungi server API...";
+      try {
+        const respon = await fetch(url);
+        
+        // Cek status kode HTTP (misal 404 jika URL tidak ditemukan)
+        if (!respon.ok) {
+          throw new Error(`Permintaan gagal dengan status HTTP: ${respon.status} (${respon.statusText})`);
+        }
+
+        const data = await respon.json();
+        outputFetch.textContent = 
+          `[BERHASIL DITERIMA]\n` +
+          `Status HTTP : ${respon.status}\n` +
+          `ID Post     : ${data.id}\n` +
+          `Judul Post  : "${data.title}"\n` +
+          `Isi Teks    : ${data.body}`;
+        console.log("Respon API:", data);
+
+      } catch (error) {
+        // Menangkap error jaringan atau throw Error dari blok try
+        outputFetch.textContent = `[TERTANGKAP DI BLOK CATCH]:\n${error.message}`;
+        console.error("Error tertangkap:", error);
+      }
+    }
+
+    btnFetchSukses.addEventListener("click", () => {
+      ambilPost("https://jsonplaceholder.typicode.com/posts/1");
+    });
+
+    btnFetchError.addEventListener("click", () => {
+      // URL sengaja diarahkan ke endpoint yang tidak ada (404)
+      ambilPost("https://jsonplaceholder.typicode.com/posts/999999_tidak_ada");
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 3: Rendering Data API Publik ke Antarmuka DOM         -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>3. Rendering Data API ke DOM (Loading, Kartu, Filter)</h2>
+    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+      <button id="btn-muat-users" class="primary">Muat Data Pengguna (API)</button>
+      <input type="text" id="input-filter-user" placeholder="Saring nama pengguna..." style="flex: 1; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;" disabled>
+    </div>
+
+    <div id="status-wadah"></div>
+    <div id="wadah-user" class="grid-user"></div>
+  </section>
+  <script>
+    const btnMuatUsers = document.getElementById("btn-muat-users");
+    const inputFilterUser = document.getElementById("input-filter-user");
+    const statusWadah = document.getElementById("status-wadah");
+    const wadahUser = document.getElementById("wadah-user");
+
+    let cacheDaftarUser = []; // Menyimpan data dari API untuk keperluan filter lokal
+
+    // Fungsi pembantu merender kartu ke DOM
+    function renderKartu(dataList) {
+      wadahUser.innerHTML = "";
+
+      if (dataList.length === 0) {
+        wadahUser.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888;'>Tidak ada pengguna yang cocok.</p>";
+        return;
+      }
+
+      dataList.forEach(user => {
+        const card = document.createElement("div");
+        card.className = "card-user";
+        card.innerHTML = `
+          <h4>${user.name}</h4>
+          <p><strong>Username:</strong> @${user.username}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+          <p><strong>Kota:</strong> ${user.address.city}</p>
+        `;
+        wadahUser.append(card);
+      });
+    }
+
+    // Event mengambil data dari API publik
+    btnMuatUsers.addEventListener("click", async () => {
+      // 1. Status Loading
+      statusWadah.innerHTML = "<div class='status-msg loading'>Sedang menghubungi server JSONPlaceholder...</div>";
+      wadahUser.innerHTML = "";
+      inputFilterUser.disabled = true;
+
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/users");
+        if (!res.ok) throw new Error("Gagal memuat data dari server.");
+
+        cacheDaftarUser = await res.json();
+
+        // 2. Status Berhasil
+        statusWadah.innerHTML = `<div class='status-msg' style='background: #f6ffed; border: 1px solid #b7eb8f; color: #389e0d;'>Berhasil memuat ${cacheDaftarUser.length} pengguna!</div>`;
+        inputFilterUser.disabled = false;
+        inputFilterUser.value = "";
+        inputFilterUser.focus();
+
+        renderKartu(cacheDaftarUser);
+
+      } catch (err) {
+        // 3. Status Gagal
+        statusWadah.innerHTML = `<div class='status-msg error'>Gagal memuat data: ${err.message}</div>`;
+      }
+    });
+
+    // Event input untuk live filtering (memanfaatkan .filter dari Bab 03!)
+    inputFilterUser.addEventListener("input", (e) => {
+      const kataKunci = e.target.value.toLowerCase().trim();
+      
+      // Saring array menggunakan method .filter()
+      const hasilFilter = cacheDaftarUser.filter(user => 
+        user.name.toLowerCase().includes(kataKunci) ||
+        user.username.toLowerCase().includes(kataKunci)
+      );
+
+      renderKartu(hasilFilter);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Praktik Bab 05: Event Handling & Web Storage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 15px;
+      line-height: 1.5;
+      color: #333;
+    }
+    .box {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fafafa;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 7px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 7px 14px;
+      border-radius: 4px;
+      border: 1px solid #999;
+      background: #fff;
+      cursor: pointer;
+    }
+    button.primary {
+      background: #0066cc;
+      color: white;
+      border: none;
+    }
+    .output {
+      font-family: monospace;
+      background: #fff;
+      border: 1px dashed #666;
+      padding: 8px 12px;
+      margin-top: 8px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Praktik Bab 05: Event & Web Storage</h1>
+  <p>Buka Developer Tools (F12 &rarr; Console) untuk melihat objek event yang berjalan.</p>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 1: Event Listener (click, input, submit)              -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>1. Event Listener ('click', 'input', 'submit')</h2>
+
+    <!-- A. Event Click Counter -->
+    <div style="margin-bottom: 15px;">
+      <button id="btn-counter" class="primary">Klik Saya (Hitungan: 0)</button>
+    </div>
+
+    <!-- B. Event Input (Live Real-time Preview) -->
+    <div class="form-group">
+      <label for="input-live">Ketik Langsung (Event 'input'):</label>
+      <input type="text" id="input-live" placeholder="Ketik sesuatu di sini...">
+      <p style="margin: 6px 0; font-size: 14px;">Preview Real-time: <strong id="teks-preview">-</strong></p>
+    </div>
+
+    <!-- C. Event Submit Form + preventDefault -->
+    <form id="form-pengguna" style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;">
+      <div class="form-group">
+        <label for="input-username">Nama Pengguna (Form Submit):</label>
+        <input type="text" id="input-username" placeholder="Masukkan nama..." required>
+      </div>
+      <button type="submit" class="primary">Kirim Form (Tanpa Reload)</button>
+    </form>
+
+    <div id="output-event" class="output">Status event akan muncul di sini...</div>
+  </section>
+  <script>
+    const outputEvent = document.getElementById("output-event");
+
+    // 1. Event 'click' pada tombol hitung
+    let hitungan = 0;
+    const btnCounter = document.getElementById("btn-counter");
+    btnCounter.addEventListener("click", (e) => {
+      hitungan++;
+      btnCounter.textContent = `Klik Saya (Hitungan: ${hitungan})`;
+      outputEvent.textContent = `[CLICK]: Tombol diklik! Total klik = ${hitungan}`;
+    });
+
+    // 2. Event 'input' untuk live preview
+    const inputLive = document.getElementById("input-live");
+    const teksPreview = document.getElementById("teks-preview");
+    inputLive.addEventListener("input", (e) => {
+      // e.target.value adalah teks saat ini
+      teksPreview.textContent = e.target.value || "-";
+      outputEvent.textContent = `[INPUT]: Sedang mengetik... (${e.target.value.length} karakter)`;
+    });
+
+    // 3. Event 'submit' pada form + e.preventDefault()
+    const formPengguna = document.getElementById("form-pengguna");
+    const inputUsername = document.getElementById("input-username");
+    formPengguna.addEventListener("submit", (e) => {
+      // Mencegah browser me-refresh / reload halaman
+      e.preventDefault();
+
+      const nama = inputUsername.value.trim();
+      outputEvent.textContent = `[SUBMIT]: Form berhasil dikirim tanpa reload halaman!\nNama User: "${nama}"`;
+      console.log("Data submit:", { nama, timestamp: new Date().toLocaleTimeString() });
+
+      inputUsername.value = "";
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 2: Event Delegation (Menangani Elemen Dinamis)        -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>2. Event Delegation (1 Listener untuk Semua Anak)</h2>
+    <p>Coba tambah barang baru, lalu klik Selesai atau Hapus. Perhatikan bahwa <strong>hanya ada 1 listener yang dipasang pada elemen induk &lt;ul&gt;</strong>!</p>
+
+    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+      <input type="text" id="input-barang" placeholder="Nama barang belanjaan..." style="flex: 1; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
+      <button id="btn-tambah-barang" class="primary">+ Tambah Barang</button>
+    </div>
+
+    <!-- Wadah induk tempat 1 event listener dipasang -->
+    <ul id="daftar-belanja" style="list-style: none; padding: 0; margin: 0;">
+      <li class="item-belanja" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; margin-bottom: 6px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+        <span class="nama-item">Kopi Bubuk</span>
+        <div>
+          <button class="btn-selesai" style="padding: 3px 8px; margin-right: 4px; cursor: pointer; background: #f6ffed; border: 1px solid #b7eb8f; color: #389e0d; border-radius: 3px;">Selesai</button>
+          <button class="btn-hapus" style="padding: 3px 8px; cursor: pointer; background: #fff1f0; border: 1px solid #ffa39e; color: #cf1322; border-radius: 3px;">Hapus</button>
+        </div>
+      </li>
+      <li class="item-belanja" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; margin-bottom: 6px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+        <span class="nama-item">Gula Pasir</span>
+        <div>
+          <button class="btn-selesai" style="padding: 3px 8px; margin-right: 4px; cursor: pointer; background: #f6ffed; border: 1px solid #b7eb8f; color: #389e0d; border-radius: 3px;">Selesai</button>
+          <button class="btn-hapus" style="padding: 3px 8px; cursor: pointer; background: #fff1f0; border: 1px solid #ffa39e; color: #cf1322; border-radius: 3px;">Hapus</button>
+        </div>
+      </li>
+    </ul>
+
+    <div id="output-delegation" class="output">Log aksi Event Delegation akan muncul di sini...</div>
+  </section>
+  <script>
+    const inputBarang = document.getElementById("input-barang");
+    const btnTambahBarang = document.getElementById("btn-tambah-barang");
+    const daftarBelanja = document.getElementById("daftar-belanja");
+    const outputDelegation = document.getElementById("output-delegation");
+
+    // 1. Tambah elemen baru (TANPA pasang listener ke tombol barunya!)
+    btnTambahBarang.addEventListener("click", () => {
+      const teks = inputBarang.value.trim();
+      if (teks === "") return;
+
+      const li = document.createElement("li");
+      li.className = "item-belanja";
+      li.style.cssText = "display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; margin-bottom: 6px; background: #fff; border: 1px solid #ddd; border-radius: 4px;";
+      
+      // Langsung menyuntikkan template tombol (tanpa addEventListener manual)
+      li.innerHTML = `
+        <span class="nama-item">${teks}</span>
+        <div>
+          <button class="btn-selesai" style="padding: 3px 8px; margin-right: 4px; cursor: pointer; background: #f6ffed; border: 1px solid #b7eb8f; color: #389e0d; border-radius: 3px;">Selesai</button>
+          <button class="btn-hapus" style="padding: 3px 8px; cursor: pointer; background: #fff1f0; border: 1px solid #ffa39e; color: #cf1322; border-radius: 3px;">Hapus</button>
+        </div>
+      `;
+
+      daftarBelanja.append(li);
+      inputBarang.value = "";
+      inputBarang.focus();
+    });
+
+    // 2. INTI EVENT DELEGATION:
+    // Pasang HANYA SATU listener di elemen induk (#daftar-belanja)
+    daftarBelanja.addEventListener("click", (e) => {
+      // Ambil elemen <li> pembungkus terdekat
+      const itemLi = e.target.closest(".item-belanja");
+      if (!itemLi) return;
+
+      const namaBarang = itemLi.querySelector(".nama-item").textContent;
+
+      // A. Jika yang diklik adalah tombol Selesai
+      if (e.target.classList.contains("btn-selesai")) {
+        itemLi.style.textDecoration = itemLi.style.textDecoration === "line-through" ? "none" : "line-through";
+        itemLi.style.opacity = itemLi.style.opacity === "0.6" ? "1" : "0.6";
+        outputDelegation.textContent = `[DELEGATION - Selesai]: Status barang "${namaBarang}" diubah!`;
+      }
+
+      // B. Jika yang diklik adalah tombol Hapus
+      if (e.target.classList.contains("btn-hapus")) {
+        itemLi.remove();
+        outputDelegation.textContent = `[DELEGATION - Hapus]: Barang "${namaBarang}" berhasil dihapus dari wadah!`;
+      }
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- BAGIAN 3: Web Storage (localStorage & JSON)                 -->
+  <!-- ============================================================ -->
+  <section class="box">
+    <h2>3. Web Storage (localStorage & JSON)</h2>
+    <p>Simpan data di bawah, lalu <strong>coba refresh halaman (F5)</strong>. Data yang tersimpan di localStorage tidak akan hilang!</p>
+
+    <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+      <input type="text" id="input-catatan" placeholder="Tulis catatan penting..." style="flex: 1; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
+      <button id="btn-simpan-catatan" class="primary">Simpan ke Storage</button>
+      <button id="btn-hapus-catatan" style="padding: 6px 12px; background: #fff1f0; border: 1px solid #ffa39e; color: #cf1322; border-radius: 4px; cursor: pointer;">Hapus Storage</button>
+    </div>
+
+    <div id="output-storage" class="output">Membaca data localStorage saat halaman dimuat...</div>
+  </section>
+  <script>
+    const inputCatatan = document.getElementById("input-catatan");
+    const btnSimpan = document.getElementById("btn-simpan-catatan");
+    const btnHapus = document.getElementById("btn-hapus-catatan");
+    const outputStorage = document.getElementById("output-storage");
+
+    const STORAGE_KEY = "koleksi_catatan";
+
+    // Fungsi membaca & merender data dari localStorage
+    function tampilkanDataStorage() {
+      // 1. Baca teks JSON dari storage
+      const dataRaw = localStorage.getItem(STORAGE_KEY);
+      
+      // 2. Terjemahkan teks JSON kembali jadi Array JavaScript (fallback [] jika null)
+      const daftarCatatan = JSON.parse(dataRaw) || [];
+
+      if (daftarCatatan.length === 0) {
+        outputStorage.textContent = "Data localStorage masih kosong. Coba simpan catatan di atas!";
+        return;
+      }
+
+      let teks = `Bentuk mentah di localStorage (String JSON):\n${dataRaw}\n\n`;
+      teks += `Hasil JSON.parse (Array Object - Total: ${daftarCatatan.length}):\n`;
+      daftarCatatan.forEach((item, idx) => {
+        teks += `${idx + 1}. ${item.teks} (disimpan: ${item.waktu})\n`;
+      });
+
+      outputStorage.textContent = teks;
+    }
+
+    // 1. Simpan catatan baru ke localStorage
+    btnSimpan.addEventListener("click", () => {
+      const teksBaru = inputCatatan.value.trim();
+      if (teksBaru === "") return;
+
+      // Ambil data array lama
+      const daftarCatatan = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+      // Tambahkan data baru
+      daftarCatatan.push({
+        teks: teksBaru,
+        waktu: new Date().toLocaleTimeString("id-ID")
+      });
+
+      // WAJIB: Ubah Array of Objects menjadi String JSON sebelum disimpan ke storage!
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(daftarCatatan));
+
+      inputCatatan.value = "";
+      inputCatatan.focus();
+      tampilkanDataStorage();
+    });
+
+    // 2. Hapus data dari localStorage
+    btnHapus.addEventListener("click", () => {
+      localStorage.removeItem(STORAGE_KEY);
+      tampilkanDataStorage();
+    });
+
+    // Jalankan otomatis saat halaman pertama kali dibuka
+    tampilkanDataStorage();
+  </script>
+
+</body>
+</html>
