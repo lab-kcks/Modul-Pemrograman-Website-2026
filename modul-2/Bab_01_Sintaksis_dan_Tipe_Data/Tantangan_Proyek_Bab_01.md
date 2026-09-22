@@ -1,6 +1,6 @@
 # Tantangan Proyek Bab 01: Kalkulator Diskon Belanja Interaktif
 
-Selamat! Anda telah menyelesaikan seluruh materi teori dasar di Bab 01. Sekarang saatnya menguji pemahaman logika JavaScript Anda secara mandiri melalui proyek mini pertama ini.
+Selamat! Anda telah menyelesaikan seluruh materi teori dasar di Bab 01. Sekarang saatnya menguji pemahaman logika JavaScript Anda secara mandiri/kelompok melalui proyek mini pertama ini.
 
 ---
 
@@ -11,7 +11,7 @@ Tugas Anda adalah menulis logika JavaScript di dalam berkas [Template_Proyek_Bab
 
 ---
 
-## 🎯 Spesifikasi & Aturan Pengerjaan
+## 🎯 Spesifikasi Pengerjaan
 
 Gunakan seluruh konsep yang telah dipelajari di Bab 01:
 1. **Variabel Modern**:
@@ -33,7 +33,7 @@ Gunakan seluruh konsep yang telah dipelajari di Bab 01:
 
 ---
 
-## 📋 Checklist Kriteria Kelulusan Proyek
+## 📋 Checklist Kriteria Kelulusan Proyek (Buat Pembantu ajah)
 - [ ] Tombol **"Hitung Pembayaran"** merespons saat diklik.
 - [ ] Input teks berhasil dikonversi ke tipe data angka (`number`).
 - [ ] Perhitungan potongan diskon dan total bayar akurat secara matematis.
@@ -43,5 +43,4 @@ Gunakan seluruh konsep yang telah dipelajari di Bab 01:
 
 ---
 
-## ⚠️ Aturan Penting (Strict Rule):
-Kerjakan secara mandiri di berkas [Template_Proyek_Bab_01.html](Template_Proyek_Bab_01.html).  
+Kerjakan secara mandiri/kelompok di berkas [Template_Proyek_Bab_01.html](Template_Proyek_Bab_01.html).  

@@ -44,7 +44,7 @@ Pecah logika program menjadi fungsi-fungsi kecil terpisah:
 
 ---
 
-## 📋 Checklist Kriteria Kelulusan Proyek
+## 📋 Checklist Kriteria Kelulusan Proyek (Buat pembantu ajah)
 - [ ] Terdapat validasi input (nama terisi, input berupa angka valid rentang 0 - 100).
 - [ ] Logika dibuat terpisah menjadi fungsi-fungsi modular (memiliki parameter dan `return` yang jelas).
 - [ ] Perhitungan bobot nilai akhir akurat (30%, 35%, 35%).
@@ -55,5 +55,5 @@ Pecah logika program menjadi fungsi-fungsi kecil terpisah:
 ---
 
 ## ⚠️ Aturan Penting (Strict No-Hint Rule):
-Kerjakan secara mandiri di berkas [Template_Proyek_Bab_02.html](Template_Proyek_Bab_02.html).  
+Kerjakan secara mandiri/kelompok di berkas [Template_Proyek_Bab_02.html](Template_Proyek_Bab_02.html).  
 
