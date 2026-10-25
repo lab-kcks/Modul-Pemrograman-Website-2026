@@ -1043,8 +1043,11 @@ flowchart LR
 ### 10.4 Cara membuat project Neon
 
 1. Buka [neon.com](https://neon.com) lalu daftar. Bisa memakai akun Google, GitHub, atau Microsoft.
+![alt text](/Modul-Pemrograman-Website-2026/modul-4/images/neon-login.png)
 2. Buat **project baru**. Beri nama (misalnya `modul-4`) dan pilih **region terdekat**, misalnya Singapore, agar latensi kecil.
+![alt text](/Modul-Pemrograman-Website-2026/modul-4/images/neon-newproject.png)
 3. Setelah project jadi, kalian masuk ke dashboard. Klik tombol **Connect**.
+![alt text](/Modul-Pemrograman-Website-2026/modul-4/images/neon-connectbranch.png)
 4. Pada jendela _Connect to your database_, salin **dua** connection string:
    - dengan opsi **Connection pooling** aktif → ini `DATABASE_URL`
    - dengan opsi **Connection pooling** dimatikan → ini `DATABASE_URL_UNPOOLED`
